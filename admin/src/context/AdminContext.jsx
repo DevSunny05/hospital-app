@@ -8,7 +8,6 @@ export const AdminContext=createContext()
 
 const AdminContextProvider=(props)=>{
     const [aToken, setAToken] = useState(localStorage.getItem('aToken') ? localStorage.getItem('aToken') : '')
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
 
     const [doctors, setDoctors] = useState([])
     const [appointments, setAppointments] = useState([])
@@ -18,7 +17,7 @@ const AdminContextProvider=(props)=>{
 
         try {
 
-            const { data } = await axios.get(backendUrl + '/api/admin/all-doctors', { headers: { aToken } })
+            const { data } = await axios.get('/api/admin/all-doctors', { headers: { aToken } })
             if (data.success) {
                 setDoctors(data.doctors)
             } else {
@@ -35,7 +34,7 @@ const AdminContextProvider=(props)=>{
     const changeAvailability = async (docId) => {
         try {
 
-            const { data } = await axios.post(backendUrl + '/api/admin/change-availability', { docId }, { headers: { aToken } })
+            const { data } = await axios.post('/api/admin/change-availability', { docId }, { headers: { aToken } })
             if (data.success) {
                 toast.success(data.message)
                 getAllDoctors()
@@ -53,7 +52,7 @@ const AdminContextProvider=(props)=>{
 
         try {
 
-            const { data } = await axios.get( backendUrl+'/api/admin/appointments', { headers: { aToken } })
+            const { data } = await axios.get('/api/admin/appointments', { headers: { aToken } })
             if (data.success) {
                 setAppointments(data.appointments.reverse())
             } else {
@@ -71,7 +70,7 @@ const AdminContextProvider=(props)=>{
 
         try {
 
-            const { data } = await axios.post(backendUrl + '/api/admin/cancel-appointment', { appointmentId }, { headers: { aToken } })
+            const { data } = await axios.post('/api/admin/cancel-appointment', { appointmentId }, { headers: { aToken } })
 
             if (data.success) {
                 toast.success(data.message)
@@ -90,7 +89,7 @@ const AdminContextProvider=(props)=>{
     const getDashData = async () => {
         try {
 
-            const { data } = await axios.get(backendUrl + '/api/admin/dashboard', { headers: { aToken } })
+            const { data } = await axios.get('/api/admin/dashboard', { headers: { aToken } })
 
             if (data.success) {
                 setDashData(data.dashData)
@@ -107,7 +106,6 @@ const AdminContextProvider=(props)=>{
     
     const value={
         aToken,setAToken,
-        backendUrl,
         doctors,getAllDoctors,
         changeAvailability,
         getAllAppointments,

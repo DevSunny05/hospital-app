@@ -10,8 +10,6 @@ const Login = () => {
     const [state, setState] = useState('Admin')
 
     const [email, setEmail] = useState('')
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
-
     const [password, setPassword] = useState('')
     const { setDToken } = useContext(DoctorContext)
     const { setAToken } = useContext(AdminContext)
@@ -21,7 +19,7 @@ const Login = () => {
 
         if (state === 'Admin') {
     
-          const { data } = await axios.post(backendUrl + '/api/admin/login', { email, password })
+          const { data } = await axios.post('/api/admin/login', { email, password })
           if (data.success) {
             console.log(data.token)
             setAToken(data.token)
@@ -32,7 +30,7 @@ const Login = () => {
     
         } else {
     
-          const { data } = await axios.post(backendUrl + '/api/doctor/login', { email, password })
+          const { data } = await axios.post('/api/doctor/login', { email, password })
           if (data.success) {
             console.log(data.token)
             setDToken(data.token)

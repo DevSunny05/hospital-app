@@ -7,7 +7,7 @@ import axios from 'axios'
 const DoctorProfile = () => {
 
     const { dToken, profileData, setProfileData, getProfileData } = useContext(DoctorContext)
-    const { currency, backendUrl } = useContext(AppContext)
+    const { currency } = useContext(AppContext)
     const [isEdit, setIsEdit] = useState(false)
 
     const updateProfile = async () => {
@@ -21,7 +21,7 @@ const DoctorProfile = () => {
                 available: profileData.available
             }
 
-            const { data } = await axios.post(backendUrl + '/api/doctor/update-profile', updateData, { headers: { dToken } })
+            const { data } = await axios.post('/api/doctor/update-profile', updateData, { headers: { dToken } })
 
             if (data.success) {
                 toast.success(data.message)
